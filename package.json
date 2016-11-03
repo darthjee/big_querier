@@ -1,0 +1,11 @@
+{
+  "name" : "big-querier",
+  "description" : "Big Query incremental design",
+  "author" : "Fernando 'darthjee' Favini",
+  "version" : "0.1.0",
+  "dependencies" : {
+    "underscore" : "~1.6.x",
+    "google-cloud" : "^0.43.0",
+    "big_wrapper" : "latest"
+  }
+}
