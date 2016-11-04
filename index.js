@@ -25,6 +25,14 @@
 
       Destiny.lastCreation(function(last){
         if (last) {
+          Origin.newerThan(last, function(rows) {
+            rows = _.map(rows, function(e) {
+              return new Destiny(e).enrich();
+            });
+            Destiny.insertBatch(rows, function() {
+              console.info('success');
+            });
+          });
         } else {
           Origin.fetch(function(rows) {
             rows = _.map(rows, function(e) {

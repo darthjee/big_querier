@@ -43,7 +43,7 @@
   }
 
   fnClass.lastCreation = function(callback) {
-    this.getTable().select('max(created_at)', {
+    this.getTable().select('max(created_at) as created_at', {
       success: function(response) {
         var value = null;
         if (response[0]) {

@@ -1,5 +1,6 @@
 (function(module){
   var _ = require("underscore"),
+      dateFormat = require('dateformat'),
       fn = {};
 
   function MysqlModelBuilder(connection, table) {
@@ -23,14 +24,21 @@
   }
 
   fn.newerThan = function(createdAt, callback) {
-    this.query('created_at > ' + createdAt, {
-      success: callback
+    createdAt = dateFormat(createdAt, "yyyy-mm-dd h:MM:ss")
+    this.query("created_at > '" + createdAt + "'", {
+      success: callback,
+      error: function() {
+        console.error(arguments);
+      }
     });
   }
 
   fn.fetch = function(callback) {
     this.query('1=1', {
-      success: callback
+      success: callback,
+      error: function() {
+        console.error(arguments);
+      }
     });
   }
 
@@ -38,6 +46,7 @@
     var table = this.table,
         that = this,
         query = 'SELECT * FROM ' + table + ' WHERE ' + where + ' LIMIT 10';
+        console.info(query);
 
     this.getConnection().query(query, function(err, rows, fields) {
       if(err) {
