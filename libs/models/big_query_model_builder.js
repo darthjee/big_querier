@@ -21,8 +21,13 @@
     return this.json;
   };
 
-  fnClass.insertBatch = function(rows) {
-    this.getTable().insert(rows);
+  fnClass.insertBatch = function(rows, callback) {
+    this.getTable().insert(rows, {
+      success: callback,
+      error: function(err, insertErrors) {
+        console.error(insertErrors[0]);
+      }
+    });
   };
 
   fnClass.getTable = function() {

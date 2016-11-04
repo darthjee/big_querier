@@ -22,8 +22,13 @@
   }
 
   fn.newerThan = function(createdAt, callback) {
-    var table = this.table;
     this.query('created_at > ' + createdAt, {
+      success: callback
+    });
+  }
+
+  fn.fetch = function(callback) {
+    this.query('1=1', {
       success: callback
     });
   }
@@ -31,7 +36,7 @@
   fn.query = function(where, options) {
     var table = this.table,
         that = this,
-        query = 'SELECT * FROM ' + table + ' WHERE ' + where;
+        query = 'SELECT * FROM ' + table + ' WHERE ' + where + ' LIMIT 10';
 
     this.getConnection().query(query, function(err, rows, fields) {
       if(err) {

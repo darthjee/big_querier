@@ -23,7 +23,14 @@
           Destiny = BigQueryModelBuilder(querierConfig.destiny.dataset, querierConfig.destiny.table);
 
       Destiny.lastCreation(function(last){
-        console.info(last);
+        if (last) {
+        } else {
+          Origin.fetch(function(rows) {
+            Destiny.insertBatch(rows, function() {
+              console.info('success');
+            });
+          });
+        }
       });
     }
   };
