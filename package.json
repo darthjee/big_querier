@@ -6,6 +6,7 @@
   "dependencies" : {
     "underscore" : "~1.6.x",
     "google-cloud" : "^0.43.0",
-    "big_wrapper" : "latest"
+    "big_wrapper" : "latest",
+    "mysql": "latest"
   }
 }
