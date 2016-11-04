@@ -1,6 +1,7 @@
 (function(module) {
   var BigQueryApi = require('big_wrapper'),
       Mysql = require('mysql'),
+      _ = require('underscore'),
       BigQueryModelBuilder = require('./libs/models/big_query_model_builder');
       MysqlModelBuilder = require('./libs/models/mysql_model_builder');
 
@@ -26,6 +27,9 @@
         if (last) {
         } else {
           Origin.fetch(function(rows) {
+            rows = _.map(rows, function(e) {
+              return new Destiny(e).enrich();
+            });
             Destiny.insertBatch(rows, function() {
               console.info('success');
             });

@@ -18,7 +18,9 @@
   }
 
   fn.enrich = function() {
-    return this.json;
+    var json = this.json;
+
+    return json;
   };
 
   fnClass.insertBatch = function(rows, callback) {

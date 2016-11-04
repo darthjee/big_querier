@@ -4,6 +4,7 @@
 
   function MysqlModelBuilder(connection, table) {
     var Model = function(json) {
+      this.json = json;
     };
 
     Model.table = table;
