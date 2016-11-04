@@ -27,7 +27,7 @@
     this.getTable().insert(rows, {
       success: callback,
       error: function(err, insertErrors) {
-        console.error(insertErrors[0]);
+        console.error(arguments);
       }
     });
   };
