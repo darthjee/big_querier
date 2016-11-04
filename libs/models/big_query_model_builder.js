@@ -22,7 +22,6 @@
   };
 
   fnClass.insertBatch = function(rows) {
-    console.info('get table');
     this.getTable().insert(rows);
   };
 
@@ -32,10 +31,21 @@
     } else {
       var datasetName = this.datasetName,
           tableName = this.tableName;
-      console.info('names', datasetName, tableName);
       return this.table = BigQueryApi.default.dataset(datasetName).table(tableName);
     }
   }
+
+  fnClass.lastCreation = function(callback) {
+    this.getTable().select('max(created_at)', {
+      success: function(response) {
+        var value = null;
+        if (response[0]) {
+          value = response[0].created_at;
+        }
+        callback(value);
+      }
+    });
+  };
 
   module.exports = BigQueryModelBuilder;
 })(module);

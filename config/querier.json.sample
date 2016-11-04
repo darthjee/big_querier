@@ -1,0 +1,9 @@
+{
+  "origin": {
+    "table": "table_name"
+  },
+  "destiny": {
+    "dataset": "dataset",
+    "table": "table_name"
+  }
+}

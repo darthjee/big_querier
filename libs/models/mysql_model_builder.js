@@ -8,7 +8,6 @@
 
     Model.table = table;
     Model.connection = connection;
-    console.info(connection);
 
     _.extend(Model, fn);
 
