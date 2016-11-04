@@ -23,8 +23,16 @@
     return this.connection;
   }
 
-  fn.newerThan = function(createdAt, callback) {
-    createdAt = dateFormat(createdAt, "yyyy-mm-dd h:MM:ss")
+  fn.newerThan = function(date, callback) {
+    var createdAt = [
+      date.getUTCFullYear(),
+      ('0' + (date.getUTCMonth()+1)).slice(-2),
+      ('0' + date.getUTCDate()).slice(-2)
+    ].join('-') + ' ' + [
+      ('0' + date.getUTCHours()).slice(-2),
+      ('0' + date.getUTCMinutes()).slice(-2),
+      ('0' + date.getUTCSeconds()).slice(-2)
+    ].join(':');
     this.query("created_at > '" + createdAt + "'", {
       success: callback,
       error: function() {
