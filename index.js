@@ -4,23 +4,36 @@
       _ = require('underscore'),
       BigQueryModelBuilder = require('./libs/models/big_query_model_builder');
       MysqlModelBuilder = require('./libs/models/mysql_model_builder');
+  const projectFile = './config/auth.json',
+        querierFile = './config/querier.json',
+        databaseFile = './config/database.json'
 
   module.exports = {
     initialize: function() {
-      const projectFile = './config/auth.json',
-            databaseFile = './config/database.json',
-            querierFile = './config/querier.json',
-            projectData = require(projectFile),
-            databaseConfig = require(databaseFile),
-            querierConfig = require(querierFile),
+      const projectData = require(projectFile),
             bigQueryConfig = {
               projectId: projectData['project_id'],
               keyFilename: projectFile
             };
 
       BigQueryApi.default = new BigQueryApi(bigQueryConfig).connect();
-      this.databaseConfig = databaseConfig;
       this.querierConfig = querierConfig;
+    },
+    getQuerierConfig: function() {
+      if (this.querierConfig) {
+        return querierConfig;
+      }
+      var querierConfig = require(querierFile);
+
+      this.querierConfig = querierConfig;
+    },
+    getDatabaseConfig: function() {
+      if (this.databaseConfig) {
+        return this.databaseConfig;
+      }
+
+      var databaseConfig = require(databaseFile),
+      this.databaseConfig = databaseConfig;
     },
     getOrigin: function() {
       if (this.Origin) {
