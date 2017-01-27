@@ -23,17 +23,14 @@
       if (this.querierConfig) {
         return querierConfig;
       }
-      var querierConfig = require(querierFile);
-
-      this.querierConfig = querierConfig;
+      return this.querierConfig = require(querierFile);
     },
     getDatabaseConfig: function() {
       if (this.databaseConfig) {
         return this.databaseConfig;
       }
 
-      var databaseConfig = require(databaseFile),
-      this.databaseConfig = databaseConfig;
+      return this.databaseConfig = require(databaseFile),
     },
     getOrigin: function() {
       if (this.Origin) {
@@ -42,8 +39,7 @@
 
       var conn = Mysql.createConnection(this.databaseConfig),
           Origin = MysqlModelBuilder(conn, this.querierConfig.origin.table),
-      this.Origin = Origin;
-      return Origin;
+      return this.Origin = Origin;
     },
     getDestiny: function() {
       if (this.Destiny) {
@@ -52,8 +48,7 @@
 
       var Destiny = BigQueryModelBuilder(this.querierConfig.destiny.dataset, this.querierConfig.destiny.table);
 
-      this.Destiny = Destiny;
-      return Destiny;
+      return this.Destiny = Destiny;
     },
     insert: function() {
     },
