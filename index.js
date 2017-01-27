@@ -40,8 +40,10 @@
         return this.Origin;
       }
 
-      var conn = Mysql.createConnection(this.databaseConfig),
-          Origin = MysqlModelBuilder(conn, this.querierConfig.origin.table),
+      var databaseConfig = this.getDatabaseConfig(),
+          conn = Mysql.createConnection(databaseConfig),
+          querierConfig = this.getQuerierConfig(),
+          Origin = MysqlModelBuilder(conn, querierConfig.origin.table),
       return this.Origin = Origin;
     },
     getDestiny: function() {
@@ -49,7 +51,8 @@
         return this.Destiny;
       }
 
-      var Destiny = BigQueryModelBuilder(this.querierConfig.destiny.dataset, this.querierConfig.destiny.table);
+      var querierConfig = this.getQuerierConfig(),
+          Destiny = BigQueryModelBuilder(querierConfig.destiny.dataset, querierConfig.destiny.table);
 
       return this.Destiny = Destiny;
     },
