@@ -10,14 +10,17 @@
 
   module.exports = {
     initialize: function() {
-      const projectData = require(projectFile),
-            bigQueryConfig = {
-              projectId: projectData['project_id'],
-              keyFilename: projectFile
-            };
+      if (BigQueryApi.default) {
+        return;
+      }
+
+      var projectData = require(projectFile),
+          bigQueryConfig = {
+            projectId: projectData['project_id'],
+            keyFilename: projectFile
+          };
 
       BigQueryApi.default = new BigQueryApi(bigQueryConfig).connect();
-      this.querierConfig = querierConfig;
     },
     getQuerierConfig: function() {
       if (this.querierConfig) {
