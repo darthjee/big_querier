@@ -6,7 +6,7 @@
       MysqlModelBuilder = require('./libs/models/mysql_model_builder');
 
   module.exports = {
-    handler: function() {
+    initialize: function() {
       const projectFile = './config/auth.json',
             databaseFile = './config/database.json',
             querierFile = './config/querier.json',
@@ -22,6 +22,16 @@
       var conn = Mysql.createConnection(databaseConfig),
           Origin = MysqlModelBuilder(conn, querierConfig.origin.table),
           Destiny = BigQueryModelBuilder(querierConfig.destiny.dataset, querierConfig.destiny.table);
+
+      this.Origin = Origin;
+      this.Destiny = Destiny;
+    },
+    insert: function() {
+    },
+    handler: function() {
+      this.initialize();
+
+      var Destiny = this.Destiny;
 
       Destiny.lastCreation(function(last){
         if (last) {
