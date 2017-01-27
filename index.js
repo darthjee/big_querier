@@ -19,19 +19,24 @@
             };
 
       BigQueryApi.default = new BigQueryApi(bigQueryConfig).connect();
-      var conn = Mysql.createConnection(databaseConfig),
-          Origin = MysqlModelBuilder(conn, querierConfig.origin.table),
-          Destiny = BigQueryModelBuilder(querierConfig.destiny.dataset, querierConfig.destiny.table);
+      this.databaseConfig = databaseConfig;
+      this.querierConfig = querierConfig;
+    },
+    getDestiny: function() {
+      var conn = Mysql.createConnection(this.databaseConfig),
+          Origin = MysqlModelBuilder(conn, this.querierConfig.origin.table),
+          Destiny = BigQueryModelBuilder(this.querierConfig.destiny.dataset, this.querierConfig.destiny.table);
 
       this.Origin = Origin;
       this.Destiny = Destiny;
+      return Destiny;
     },
     insert: function() {
     },
     handler: function() {
       this.initialize();
 
-      var Destiny = this.Destiny;
+      var Destiny = this.getDestiny();
 
       Destiny.lastCreation(function(last){
         if (last) {
