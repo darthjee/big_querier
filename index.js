@@ -23,12 +23,20 @@
       this.querierConfig = querierConfig;
     },
     getOrigin: function() {
+      if (this.Origin) {
+        return this.Origin;
+      }
+
       var conn = Mysql.createConnection(this.databaseConfig),
           Origin = MysqlModelBuilder(conn, this.querierConfig.origin.table),
       this.Origin = Origin;
       return Origin;
     },
     getDestiny: function() {
+      if (this.Destiny) {
+        return this.Destiny;
+      }
+
       var Destiny = BigQueryModelBuilder(this.querierConfig.destiny.dataset, this.querierConfig.destiny.table);
 
       this.Destiny = Destiny;
