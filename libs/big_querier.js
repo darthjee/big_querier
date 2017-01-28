@@ -9,7 +9,7 @@
     var projectData = require(projectFile),
         bigQueryConfig = {
           projectId: projectData['project_id'],
-          keyFilename: projectFile
+          keyFilename: './libs/' + projectFile
         };
 
     this.projectFile = projectFile;
