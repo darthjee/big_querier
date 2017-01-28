@@ -56,7 +56,13 @@
 
       return this.Destiny = Destiny;
     },
-    insert: function() {
+    insert: function(data) {
+      var Destiny = this.getDestiny(),
+          rows = data.constructor == Array ? data : [ data ];
+
+      Destiny.insertBatch(rows, function() {
+        console.info('success');
+      });
     },
     handler: function() {
       this.initialize();
@@ -70,18 +76,14 @@
             rows = _.map(rows, function(e) {
               return new Destiny(e).enrich();
             });
-            Destiny.insertBatch(rows, function() {
-              console.info('success');
-            });
+            that.insert(rows);
           });
         } else {
           Origin.fetch(function(rows) {
             rows = _.map(rows, function(e) {
               return new Destiny(e).enrich();
             });
-            Destiny.insertBatch(rows, function() {
-              console.info('success');
-            });
+            that.insert(rows);
           });
         }
       });
