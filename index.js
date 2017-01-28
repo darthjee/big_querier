@@ -64,7 +64,14 @@
         console.info('success');
       });
     },
+    enrich: function(rows) {
+      var Destiny = this.getDestiny();
+      return _.map(rows, function(e) {
+        return new Destiny(e).enrich();
+      });
+    },
     handler: function() {
+      var that = this;
       this.initialize();
 
       var Destiny = this.getDestiny(),
@@ -73,16 +80,12 @@
       Destiny.lastCreation(function(last){
         if (last) {
           Origin.newerThan(last, function(rows) {
-            rows = _.map(rows, function(e) {
-              return new Destiny(e).enrich();
-            });
+            rows = that.enrich(rows);
             that.insert(rows);
           });
         } else {
           Origin.fetch(function(rows) {
-            rows = _.map(rows, function(e) {
-              return new Destiny(e).enrich();
-            });
+            rows = that.enrich(rows);
             that.insert(rows);
           });
         }
