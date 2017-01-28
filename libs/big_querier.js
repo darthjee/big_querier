@@ -4,9 +4,6 @@
       _ = require('underscore'),
       BigQueryModelBuilder = require('./models/big_query_model_builder');
       MysqlModelBuilder = require('./models/mysql_model_builder');
-  const projectFile = '../config/auth.json',
-        querierFile = '../config/querier.json',
-        databaseFile = '../config/database.json'
 
   function BigQuerier(projectFile, querierFile, databaseFile) {
     var projectData = require(projectFile),
@@ -36,7 +33,7 @@
       return this.databaseConfig;
     }
 
-    return this.databaseConfig = require(this.databaseFile),
+    return this.databaseConfig = require(this.databaseFile);
   };
 
   fn.getOrigin = function() {
@@ -94,10 +91,9 @@
         Origin.fetch(function(rows) {
           rows = that.enrich(rows);
           that.insert(rows);
-          });
-        }
-      });
-    }
+        });
+      }
+    });
   };
   module.exports = BigQuerier;
 })(module);
